@@ -21,8 +21,15 @@
   {% block css %}{% endblock %}
 
   <!-- Rather use `less.js` to dynamically compile your `stylesheet/less` files? -->
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.1.5/less-1.1.5.min.js"></script>
   <script>window.less || document.write('<script src="/static/js/less.js">\x3C/script>')</script>
+
+  <script>window.jQuery || document.write('<script src="/static/js/jquery.js">\x3C/script>')</script>
+
+  <script>window._|| document.write('<script src="/static/js/underscore.js">\x3C/script>')</script>
+
+  <script>window.Backbone || document.write('<script src="/static/js/backbone.js">\x3C/script>')</script>
+  <script>window.Backbone || document.write('<script src="/static/js/backbone.js">\x3C/script>')</script>
+
 
   <!-- Need Modernizr? Uncomment the following script. -->
   <!-- <script src="/static/js/modernizr.js"></script> -->
@@ -47,172 +54,51 @@
   <!-- JavaScript at the bottom for fast page loading -->
 
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script>window.jQuery || document.write('<script src="/static/js/libs/jquery.js">\x3C/script>')</script>
-  <script type="text/javascript">
-    jQuery(document).ready(function($){
-      // window.fbAsyncInit = function() {
-      //   OnLoad();
-      // };
-    })
-
-    var service_endpoint = "http://www.together.in.th/drupal";
-
-    function OnLoad() {
-      display_cctv();
-      $('#show-all-cctv-button').click(function(e) {
-        window.top.location = "http://www.facebook.com/together.in.th?sk=app_203158633036737";
-      });
-      $('.cctv-image').live('click', function(e) {
-            var self = $(this);
-            var siblings = self.siblings('.cctv-info');
-            var road = $('.cctv-name', siblings).text();
-            var last_update = $('.cctv-lastupdate', siblings).text();
-            //console.log('cid: ', self.attr('cid'), $('.cctv-name', siblings).text());
-            e.stopPropagation();
-            e.preventDefault();
-            var success_callback = function() {
-              var post_to = FB.getSession().uid || '153305968014537';
-              var text_to_post = road + " เมื่อ " + last_update;
-              var data_ui = prepare_data_ui(post_to, text_to_post, self.attr('cid'));
-              //console.log(data_ui);
-              FB.ui(data_ui, function(response) {
-                if (response && response.post_id) {
-                  //console.log(response);
-                }
-                else {
-                  //console.log(response);
-                }
-              });
-            }
-            doLogin(success_callback);
-      });
-
-      $(function() {
-        $('#reload-cctv-button').click(function(e) {
-          $('.cctv-jsonp-example-output').children().remove();
-          display_cctv();
-          FB.Canvas.setSize();
-        });
-
-
-      });
-    }
-
-    function display_cctv() {
-      var loading = $("<div class='loading-cctv'>Loading...</div>");
-      loading.css('padding', '20px');
-      $('.cctv-jsonp-example-output').append(loading);
-
-      $.getJSON(service_endpoint+ '/traffy/wrapper/getcctv/?format=js&call=?&header=js', function(res) {
-        if (window.display_flag == 'all') {
-          $.each(res, function(k, v) {
-            var html = cctv_layout(k, v.name_th, v.lastupdate)
-            console.log(html)
-            $('.cctv-jsonp-example-output').append(html);
-          });
-        }
-        else {
-          // app_id
-            var v = res[window.cctv_id];
-            if (typeof(v) !== "undefined") {
-              $('.cctv-jsonp-example-output').append(cctv_layout(window.cctv_id, v.name_th, v.lastupdate));
-              $('#show-all-cctv-button').css('display', 'inline');
-            }
-        }
-
-        $('.cctv-wrapper').css('margin', '20px 20px');
-        $('.cctv-lastupdate').css('margin-left', '10px');
-
-        $(loading).remove();
-      });
-    }
-
-    var prepare_data_ui = function(to, road_text, cid) {
-      var picture_path = 'http://www.together.in.th/drupal/sites/default/files/traffy/cctv/'+ cid +'.jpg';
-      var data_ui = {
-          method: 'feed',
-          name: 'แบ่งปันสภาพจราจร',
-          link: 'http://www.facebook.com/together.in.th?sk=app_203158633036737&app_data=cid:'+cid,
-          picture: picture_path,
-          caption: road_text,
-          message: '',
-          description: ' ',
-          to: to
-        };
-      return data_ui;
-    }
-
-    function cctv_layout(cid, name, time) {
-      var wrapper = $("<div class='cctv-wrapper' />");
-      var info = $("<div class='cctv-info' />");
-
-      var cctv_image_src = service_endpoint + "/traffy/wrapper/getcctvimg?&header=jpeg&format=jpeg&id=" + cid;
-      var cctv_image_src_static = service_endpoint + "/traffy/generate/cctvimg/"+ cid + ".jpg";
-      var cctv_image = $("<img />").attr({'alt': name, 'src': cctv_image_src_static, 'cid': cid, 'class': 'cctv-image' });
-
-      var name = $("<span class='cctv-name' />").html(name);
-      var lastupdate = $("<span class='cctv-lastupdate' />").html(time);
-
-      info.append(name).append(lastupdate);
-      wrapper.append(cctv_image).append(info);
-
-      return wrapper;
-    }
-
-
-    var doLogin = function(success_cb) {
-      FB.login(function(response) {
-        if (response.session) {
-          if (response.perms) {
-            success_cb();
-          } else {
-            // user is logged in, but did not grant any permissions
-          }
-        } else {
-          // user is not logged in
-          //console.log('not loggedin');
-        }
-      }, {perms:'publish_stream'});
-    }
-
-  </script>
 
   <!-- Additional JavaScript libraries and plugins... -->
   {% block js %}
 
   {% endblock %}
 
+  <script type="text/javascript">
+  jQuery(document).ready(function($){
+      window.CctvItem = Backbone.Model.extend({urlRoot: '/cctvs'});
+{#      window.cctvItem = new CctvItem({#}
+{#          "name": "Viriyah Ratchada-Huaykwang",#}
+{#          "name_th": "วิริยะประกันภัย รัชดา-ห้วยขวาง (Viriyah Ratchada-Huaykwang)",#}
+{#          "point": {#}
+{#              "lat": 13.76743,#}
+{#              "lng": 100.57068#}
+{#          },#}
+{#          "available": "t",#}
+{#          "lastupdate": "2013-01-12 15:00:17",#}
+{#          "url": "http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=0&appid=00000152&key=VZcpJVMqW8",#}
+{#          "src": "Viriyah insurance",#}
+{#          "desc": "",#}
+{#          "list": "http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=0&appid=00000152&key=VZcpJVMqW8,http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=1&appid=00000152&key=VZcpJVMqW8,http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=2&appid=00000152&key=VZcpJVMqW8,http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=3&appid=00000152&key=VZcpJVMqW8,http://api.traffy.in.th/apis/apitraffy.php?api=getcctvimg&id=255&num=4&appid=00000152&key=VZcpJVMqW8"#}
+{#      })#}
+
+      window.CctvView = Backbone.View.extend({
+        render: function() {
+          var html  = "<h3>" + this.model.get('src') + "</h3>";
+          $(this.el).html(html)
+        }
+      })
+
+      window.CctvList = Backbone.Collection.extend({
+          url: '/cctvs',
+          model: CctvItem
+      })
+
+      window.cctvView = new CctvView({model: cctvItem })
+      window.cctvList = new CctvList()
+  })
+
+  </script>
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script type="text/javascript">
-        (function() {
-          var e = document.createElement('script');
-          e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';
-          e.async = true;
-          document.getElementById('fb-root').appendChild(e);
-        }());
-
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId  : '271836892942818',
-          status : true, // check login status
-          cookie : true, // enable cookies to allow the server to access the session
-          xfbml  : true  // parse XFBML
-        });
-        console.log("INIT!")
-        //FB.Canvas.setAutoResize(90);
-      }
-  </script>
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
-
 
   <!-- Prompt IE < 8 users to install Chrome Frame.  -->
   <!--[if lt IE 8 ]>
