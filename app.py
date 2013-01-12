@@ -6,8 +6,9 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-import os
+import os, requests
 from flask import Flask, render_template, request, redirect, url_for
+import json
 
 app = Flask(__name__)
 
@@ -57,6 +58,21 @@ def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
 
+###
+# API`
+###
+@app.route('/cctvs')
+def cctvs():
+    got = requests.get('http://www.together.in.th/drupal/traffy/wrapper/getcctv/?format=json')
+    print got.encoding
+#    return got.text.decode('iso8859-1').encode('utf-8')
+#    return got.text.decode('latin1').encode('utf8')
+    text = got.text.encode('latin-1')
+    j = json.loads(text)
+    for k, v in j[0].iteritems():
+        v['id'] = k
+    out = j[0].values()
+    return json.dumps(out)
 
 if __name__ == '__main__':
     app.run(debug=True)
