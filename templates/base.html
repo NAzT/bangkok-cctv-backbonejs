@@ -49,29 +49,6 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-  <script type="text/javascript">
-        (function() {
-          var e = document.createElement('script');
-          e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';
-          e.async = true;
-          document.getElementById('fb-root').appendChild(e);
-        }());
-
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId  : '271836892942818',
-          status : true, // check login status
-          cookie : true, // enable cookies to allow the server to access the session
-          xfbml  : true  // parse XFBML
-        });
-        FB.Canvas.setAutoResize(90);
-      }
-    </script>
-  </script>
-      <script>
-    </script>
-
-
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
   <script>window.jQuery || document.write('<script src="/static/js/libs/jquery.js">\x3C/script>')</script>
   <script type="text/javascript">
@@ -204,10 +181,31 @@
   </script>
 
   <!-- Additional JavaScript libraries and plugins... -->
-  {% block js %}{% endblock %}
+  {% block js %}
+
+  {% endblock %}
 
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script type="text/javascript">
+        (function() {
+          var e = document.createElement('script');
+          e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js#xfbml=1';
+          e.async = true;
+          document.getElementById('fb-root').appendChild(e);
+        }());
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId  : '271836892942818',
+          status : true, // check login status
+          cookie : true, // enable cookies to allow the server to access the session
+          xfbml  : true  // parse XFBML
+        });
+        console.log("INIT!")
+        //FB.Canvas.setAutoResize(90);
+      }
+  </script>
   <script>
     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
