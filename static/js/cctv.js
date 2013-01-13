@@ -11,7 +11,6 @@ window.CctvView = Backbone.View.extend({
     template:_.template(' <img alt="<%= name_th %>" src="http://www.together.in.th/drupal/traffy/generate/cctvimg/<%= id %>.png" class="cctv-image"> \
                               <div class="cctv-info"> \
                                   <span class="cctv-name"><%= name_th %></span>\
-                                  <span class="cctv-lastupdate" style="margin-left: 10px;"><%= lastupdate %></span>\
                               </div>'),
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
@@ -45,7 +44,7 @@ jQuery(function($){
         initialize: function() {
             this.cctvList = new CctvList();
             this.cctvsView = new CctvListView({ collection: this.cctvList });
-            $('body').append(this.cctvsView.el)
+            $('#app').append(this.cctvsView.el)
         },
         start: function() {
             Backbone.history.start({pushState: true});

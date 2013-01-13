@@ -5,15 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div id="fb-root"></div>
-  <div class ="cctv-wrapper">
-  <fb:like-box href="http://www.facebook.com/together.in.th" width="292" show_faces="false" stream="false" header="false"></fb:like-box>
-  </div>
-  <div class='cctv-jsonp-example'>
-  <button type='button' id='show-all-cctv-button'>กล้อง CCTV ทั้งหมด</button>
-  <button type='button' id='reload-cctv-button'>reload กล้อง CCTV</button>
-  <div class='suggest-share-text'>* ร่วมแบ่งปันสภาพจราจร คลิ๊กที่รูปได้เลยจ้าาา</div>
-  <div class='cctv-jsonp-example-output'></div>
-</div>
-<div class="cleaner"></div>
+    <div id="fb-root"></div>
+    <fb:like-box href="http://www.facebook.com/together.in.th" width="292" show_faces="false" stream="false" header="false"></fb:like-box>
+    <div id="app"></div>
 {% endblock %}
