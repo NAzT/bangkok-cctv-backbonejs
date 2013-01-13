@@ -2,11 +2,17 @@ window.CctvItem = Backbone.Model.extend({});
 window.CctvView = Backbone.View.extend({
     className: 'cctv-wrapper',
     tagName: 'li',
+    events: {
+        'click img': 'onClick'
+    },
+    onClick: function() {
+        console.log("CLICKED");
+    },
     template:_.template(' <img alt="<%= name_th %>" src="http://www.together.in.th/drupal/traffy/generate/cctvimg/<%= id %>.png" class="cctv-image"> \
-                  <div class="cctv-info"> \
-                      <span class="cctv-name"><%= name_th %></span>\
-                      <span class="cctv-lastupdate" style="margin-left: 10px;"><%= lastupdate %></span>\
-                  </div>'),
+                              <div class="cctv-info"> \
+                                  <span class="cctv-name"><%= name_th %></span>\
+                                  <span class="cctv-lastupdate" style="margin-left: 10px;"><%= lastupdate %></span>\
+                              </div>'),
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
@@ -18,15 +24,12 @@ window.CctvList = Backbone.Collection.extend({
     model: CctvItem
 })
 
-//window.cctvList = new CctvList()
-
 window.CctvListView = Backbone.View.extend({
     initialize: function() {
         this.on('add', this.addOneRecord, this);
         this.collection.on('reset', this.render, this);
     },
     render: function() {
-        console.log("RENDERING");
         this.collection.forEach(this.addOneRecord, this);
     },
     addOneRecord: function(cctvItem) {
@@ -35,10 +38,6 @@ window.CctvListView = Backbone.View.extend({
         return this;
     }
 });
-
-//window.cctvListView = new CctvListView({collection: cctvList})
-//$('body').append(cctvListView.el)
-//cctvList.fetch({ success: function() { cctvListView.render(); }})
 
 jQuery(function($){
     var CctvApp = new (Backbone.Router.extend({
@@ -57,6 +56,5 @@ jQuery(function($){
         },
         show: function(id){ }
     }));
-
     CctvApp.start();
 })
