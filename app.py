@@ -65,9 +65,6 @@ def page_not_found(error):
 def cctvs():
     r = requests.get('http://www.together.in.th/drupal/traffy/wrapper/getcctv/?format=json')
 
-    #return r.text.decode('iso8859-1').encode('utf-8')
-    #return r.text.decode('latin1').encode('utf8')
-
     text = r.text.encode('latin-1')
     j = json.loads(text)
 
