@@ -63,16 +63,18 @@ def page_not_found(error):
 ###
 @app.route('/cctvs')
 def cctvs():
-    got = requests.get('http://www.together.in.th/drupal/traffy/wrapper/getcctv/?format=json')
-    print got.encoding
-#    return got.text.decode('iso8859-1').encode('utf-8')
-#    return got.text.decode('latin1').encode('utf8')
-    text = got.text.encode('latin-1')
+    r = requests.get('http://www.together.in.th/drupal/traffy/wrapper/getcctv/?format=json')
+
+    #return r.text.decode('iso8859-1').encode('utf-8')
+    #return r.text.decode('latin1').encode('utf8')
+
+    text = r.text.encode('latin-1')
     j = json.loads(text)
+
     for k, v in j[0].iteritems():
         v['id'] = k
-    out = j[0].values()
-    return json.dumps(out)
+
+    return json.dumps(j[0].values())
 
 if __name__ == '__main__':
     app.run(debug=True)
