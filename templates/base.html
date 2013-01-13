@@ -28,7 +28,6 @@
   <script>window._|| document.write('<script src="/static/js/underscore.js">\x3C/script>')</script>
 
   <script>window.Backbone || document.write('<script src="/static/js/backbone.js">\x3C/script>')</script>
-  <script>window.Backbone || document.write('<script src="/static/js/backbone.js">\x3C/script>')</script>
 
   <script type="text/javascript" src="/static/js/cctv.js" />
 
@@ -44,8 +43,11 @@
     {% include "header.html" %}
   </header>
 
+  <div id="app"> </div>
+
   <div id="main" role="main">
     {% block main %}{% endblock %}
+
   </div>
 
   <footer>
