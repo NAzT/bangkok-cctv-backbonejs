@@ -2,7 +2,7 @@
 
 <ul ng-repeat="cctv in cctvs">
 	<li class="cctv-wrapper">
-		<img alt="{{ cctv.name_th }}" src="http://www.together.in.th/drupal/traffy/generate/cctvimg/{{ cctv.id }}.png" class="cctv-image">
+		<img ng-click="click_on_cctv(cctv)" alt="{{ cctv.name_th }}" src="http://www.together.in.th/drupal/traffy/generate/cctvimg/{{ cctv.id }}.png" class="cctv-image">
 	<div class="cctv-info">
 		<span class="cctv-name">{{ cctv.name_th }} </span>
 	</div>

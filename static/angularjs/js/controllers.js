@@ -14,4 +14,7 @@ MyCtrl2.$inject = [];
 
 function CctvListCtrl ($scope, Cctv, $window) {
 	$scope.cctvs = Cctv.query();
+	$scope.click_on_cctv = function(cctv) {
+		console.log(cctv);
+	}
 }
